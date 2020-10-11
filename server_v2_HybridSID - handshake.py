@@ -115,16 +115,18 @@ while True:
                     send_OK()
 
                 elif command == 1: # TRY_SET_SID_COUNT
+                    print( '    sid count: %s' % sid_number)
+                    
                     send_OK()
 
                 elif command == 2: # MUTE
                     voice, enable = struct.unpack( '!BB', data )
-                    print( '  voice: %s, enable: %s' % ( voice, enable ))
+                    print( '[%s] voice: %s, enable: %s' % (sid_number, voice, enable) )
                     send_OK()
 
                 elif command == 3: # TRY_RESET
                     volume_register_value, = struct.unpack( '!B', data )
-                    print( '  volume register value: %s' % volume_register_value)
+                    print( '[%s] volume register value: %s' % (sid_number, volume_register_value) )
                     send_OK()
 
                 elif command == 4: # TRY_DELAY
@@ -156,14 +158,14 @@ while True:
                           #  #print( 'START')
                           if status == b'E':
                             paused = 1
-                            print( 'FPGA requested pause, buffer full...')
+                            print( '    FPGA requested pause, buffer full...')
                             #print( '>>>>>>BUSY')
                         send_OK()
                             #print( '>>>>>>OK')
                         byte_count += data_length
                         current_time = time.time()
                         if previous_time + 0.1 < current_time:
-                            print( '%s Bytes/s,' % int( byte_count / ( current_time - previous_time ) ), 'block size: %s' % data_length)
+                            print( '[%s] %s Bytes/s, block size: %s' % (sid_number, int( byte_count / ( current_time - previous_time ) ), data_length ) )
                             byte_count = 0
                             previous_time = current_time
 
@@ -176,12 +178,12 @@ while True:
 
                 elif command == 8: # TRY_SET_SAMPLING
                     resampling_method, = struct.unpack( '!B', data )
-                    print( '  resampling method: %s quality' % ( 'low' if resampling_method == 0 else 'high' ))
+                    print( '[%s] resampling method: %s quality' % ( sid_number, 'low' if resampling_method == 0 else 'high' ))
                     send_OK()
 
                 elif command == 9: # TRY_SET_CLOCKING
                     clock_source_speed, = struct.unpack( '!B', data )
-                    print( '  clock source speed: %s' % ( 'PAL' if clock_source_speed == 0 else 'NTSC' ))
+                    print( '[%s] clock source speed: %s' % ( sid_number, 'PAL' if clock_source_speed == 0 else 'NTSC' ))
                     send_OK()
 
                 elif command == 10: # GET_CONFIG_COUNT
@@ -192,7 +194,7 @@ while True:
 
                 elif command == 12: # SET_SID_POSITION
                     position, = struct.unpack( '!B', data )
-                    print( '  position: %s' % position)
+                    print( '[%s] position: %s' % (sid_number, position) )
                     send_OK()
 
                 elif command == 13: # SET_SID_LEVEL
@@ -200,7 +202,7 @@ while True:
 
                 elif command == 14: # TRY_SET_SID_MODEL
                     model, = struct.unpack( '!B', data )
-                    print( '  model: %s' % model)
+                    print( '[%s] model: %s' % (sid_number, model) )
                     send_OK()
 
     except ACID64Closed:

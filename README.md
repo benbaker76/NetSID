@@ -235,3 +235,19 @@ the meantime you've clicked on another song, you still have to wait for the
 old song data in the buffer to play out before the new song starts playing.
 This could be vastly improved by only buffering a certain about of _time_
 rather than a certain amount of _samples_
+
+# UPDATES BY HEADKAZE
+
+1. It now has the latest SID vhdl (with filters) from https://github.com/MEGA65/mega65-core/tree/master/src/vhdl
+   - sid_6581.vhd
+   - sid_coeffs.vhd
+   - sid_components.vhd
+   - sid_filters.vhd
+   - sid_voice.vhd
+2. Added an audio mixer from https://github.com/GadgetFactory/ZPUino-HDL/tree/master/zpu/hdl/zpuino/contrib
+   - simple_sigmadelta.vhd
+   - zpuino_audiomixer.vhd
+3. Added the latest async.v from https://www.fpga4fun.com/files/async.zip which contains the latest versions of async_transmitter and async_receiver
+4. Added 2SID and 3SID support
+   - Reading the documentation for the Network SID Device Protocol (https://sourceforge.net/p/jsidplay2/code/HEAD/tree/trunk/jsidplay2/src/main/asciidoc/netsiddev.adoc) the TRY_WRITE command has a 3rd byte which is an 8-bit SID register number from 0x00 to 0x1f. It doesn't mention it but I found by looking at the source that bits 5 to 6 store the SID number when the song supports multiple SIDs.
+5. Output from "server_v2_HybridSID - handshake.py" now shows the sid_number variable so you know which SID the data is outputting to .

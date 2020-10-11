@@ -67,13 +67,13 @@ begin
 	);
 
 	-- Clock process definitions
-	clock_process :process
+	clock_process: process
 	begin
 		clock <= not clock;
 		wait for clock_period/2;
 	end process;
 
-  serial_in : process
+  serial_in: process
 		variable inline : line;
 		variable bv : std_logic_vector(7 downto 0);
 	begin
