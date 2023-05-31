@@ -108,7 +108,7 @@ That page is by far the easiest to comprehend FIR filter design page I have ever
 
 Secondly, the current buffer in the FPGA is not really optimal. For example, some .sid files have very low throughput, as such, when they fill the buffer there is enough data there to keep playing for a number of seconds, even if in the meantime you've clicked on another song, you still have to wait for the old song data in the buffer to play out before the new song starts playing. This could be vastly improved by only buffering a certain about of _time_ rather than a certain amount of _samples_
 
-# Updates by headkaze
+# Updates by benbaker76
 
 1. It now has the latest SID vhdl (with filters) from https://github.com/MEGA65/mega65-core/tree/master/src/vhdl
    - **Filter support was added by [alvieboy](https://github.com/alvieboy)**
